@@ -1,0 +1,35 @@
+body {
+  font-family: monospace;
+  background-color: black;
+  color: white;
+}
+
+.box {
+  height: 100px;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  gap: 10px;
+  margin: 10px;
+  text-align: center;
+  border: solid rgba(100,100,100, 0.5);
+}
+
+[data-swd-space] {
+  border: solid grey 1px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#drag1 {
+  position: relative;
+}
+
+.box-handle {
+  height: 20px;
+  background-color: green;
+}
