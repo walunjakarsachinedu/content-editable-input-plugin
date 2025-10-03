@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/main.ts",
     "dev": "vite",
     "build": "tsc"
   },
