@@ -3,8 +3,9 @@
   "version": "1.0.5",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "ts-node src/main.ts",
+    "start": "tsx src/main.ts",
     "dev": "vite",
     "build": "tsc"
   },
@@ -15,7 +16,8 @@
     "@types/node": "^24.5.2",
     "serve": "^14.2.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
     "vite": "^7.1.3"
   }
 }
