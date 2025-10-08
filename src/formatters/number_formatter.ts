@@ -1,5 +1,5 @@
 /** format number string by inserting comma */
-const format = (num: string): string => {
+const numberFormatter = (num: string): string => {
   let onlyNumber = num.replaceAll(/[^0-9]/g, "");
 
   if(onlyNumber.length <= 3) return onlyNumber;
@@ -11,4 +11,4 @@ const format = (num: string): string => {
   return formattedNumber.join("");
 } 
 
-export { format };
+export { numberFormatter };

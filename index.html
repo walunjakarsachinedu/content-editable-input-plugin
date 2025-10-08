@@ -8,34 +8,9 @@
   <script type="module" src="./src/main.ts" defer></script>
 </head>
 <body>
-
-<div>
-  <div data-swd-space>
-    <!-- can be dropped on both "Drop Location 1" & "Drop Location 2" -->
-    <div id="drag1" class="box" data-swd-targets="zone1 zone2" data-swd-target-drag-point="handle">
-      <div>drag1</div>
-      <div class="box-handle" data-swd-drag-point="handle">Drag Me</div>
-    </div>
-
-    <!-- can be dropped only on "Drop Location 2" -->
-    <div id="drag2" class="box" data-swd-targets="zone2">
-      <div>drag2</div>
-      Drag me too
-    </div>
-
-    <!-- drop zones -->
-    <div id="drop1" class="box" data-swd-zones="zone1">
-      <div>drop1</div>
-      Drop Location 1
-    </div>
-    <div id="drop2" class="box" data-swd-zones="zone2">
-      <div>drop2</div>
-      Drop Location 2
-    </div>
+  <div style="display: flex; justify-content: center; align-items: start; gap: 20px; margin-top: 200px;">
+    <button id="toggle-plugin">toggle plugin</button>
+    <div contenteditable ce-input="numberFormatter" style="background-color: gray; outline: none; padding-left: 10px; min-width: 300px; font-size: large;"></div>
   </div>
-  <br><br>
-  <div class="txt">Note: drag1 can be dropped on both drop1 & drop2, while drag2 can only be dropped on drop2</div>
-</div>
-
 </body>
 </html>
