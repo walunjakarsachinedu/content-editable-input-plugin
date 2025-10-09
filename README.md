@@ -18,7 +18,24 @@ Simple html plugin enhancing capability of contenteditable.
 
 ### Behaviour
 
-- If ce-input is present and disable-ce-input is absent, plugin applies listed modifier functions on input events.
+- If ce-input is present and disable-ce-input is absent, plugin applies listed modifier functions on input events in order it is specified.
+  - modifier are called with input string & input event
 - Modifier functions can be built-in or registered by the user.
 - Removing ce-input or adding disable-ce-input stops the plugin from applying modifiers.
 - Automatically sets min-width equal to ce-input-placeholder length (only if min-width not exist or its less than width require to show placeholder)
+
+### creating custom modifier
+
+```typescript
+import { ceInputPlugin } from "./ce-input-plugin";
+
+const waveCase = (text: string, ev: InputEvent): string => {
+  return text
+    .split("")
+    .map((ch, i) => (i % 2 === 0 ? ch.toUpperCase() : ch.toLowerCase()))
+    .join("");
+};
+
+ceInputPlugin.enablePlugin();
+ceInputPlugin.registerModifier("waveCase", waveCase);
+```

@@ -1,11 +1,19 @@
 import { diff as myerDiff } from "./diff/myers_diff";
 import { Change } from "./diff/types";
-import { numberFormatter } from "./formatters/number_formatter";
+import { dateFormat, decimalLimiter, lowerCase, numberFormatter, preventNewLine, titleCase, trimSpaces, upperCase } from "./formatters";
 
 
 class CEInputPlugin {
-  readonly modifiers: Record<string, (str: string) => string> = {
-    numberFormatter
+  readonly modifiers: Record<string, (str: string, event: InputEvent) => string> = {
+    numberFormatter,
+    trimSpaces, 
+    titleCase,
+    dateFormat,
+    lowerCase,
+    upperCase, 
+    preventNewLine
+    // TODO: add this modifier
+    // decimalLimiter
   };
 
   enablePlugin() {
@@ -16,7 +24,7 @@ class CEInputPlugin {
     document.removeEventListener("input", this._onInputChange);
   }
 
-  registerModifier(name: string, fn: (str: string) => string) {
+  registerModifier(name: string, fn: (str: string, ev: InputEvent) => string) {
     this.modifiers[name] = fn;
   }
 
@@ -35,7 +43,7 @@ class CEInputPlugin {
     if (validModifiers.length === 0) return;
 
     let newTxt = oldTxt;
-    for (const modFn of validModifiers) newTxt = modFn(newTxt);
+    for (const modFn of validModifiers) newTxt = modFn(newTxt, ev);
 
     if (newTxt === oldTxt) return;
 
