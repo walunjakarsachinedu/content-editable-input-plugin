@@ -15,13 +15,16 @@ class CEInputPlugin {
     // TODO: add this modifier
     // decimalLimiter
   };
+  observer?: MutationObserver;
 
   enablePlugin() {
     document.addEventListener("input", this._onInputChange);
+    this._listenToAttributeChange();
   }
   
   disablePlugin() {
     document.removeEventListener("input", this._onInputChange);
+    this.observer?.disconnect();
   }
 
   registerModifier(name: string, fn: (str: string, ev: InputEvent) => string) {
@@ -112,6 +115,53 @@ class CEInputPlugin {
     return newPos;
   }
 
+
+  private _listenToAttributeChange() {
+    // handle existing elements
+    document.querySelectorAll('[ce-input]').forEach(this._onEditableElementAdd);
+
+    this.observer = new MutationObserver((mutations): void => {
+      for (const mutation of mutations) {
+        // detect added/removed nodes
+        mutation.addedNodes.forEach((node: Node): void => {
+          if (!(node instanceof Element)) return;
+          if (node.hasAttribute('ce-input')) this._onEditableElementAdd(node);
+          node.querySelectorAll?.('[ce-input]').forEach(this._onEditableElementAdd);
+        });
+
+        mutation.removedNodes.forEach((node: Node): void => {
+          if (!(node instanceof Element)) return;
+          if (node.hasAttribute('ce-input')) this._onEditableElementRemove(node);
+          node.querySelectorAll?.('[ce-input]').forEach(this._onEditableElementRemove);
+        });
+
+        // detect attribute changes
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'ce-input'
+        ) {
+          const target = mutation.target as Element;
+          if (target.hasAttribute('ce-input')) this._onEditableElementAdd(target);
+          else this._onEditableElementRemove(target);
+        }
+      }
+    });
+
+    this.observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['ce-input'],
+    });
+  }
+
+  private _onEditableElementAdd(el: Element) {
+    // TODO: complete logic
+  }
+
+  private _onEditableElementRemove(el: Element) {
+    // TODO: complete cleanup logic
+  }
 }
 
 
